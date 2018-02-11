@@ -23,9 +23,34 @@ class NeuralNetwork(object):
         # expit is the inbuilt sigmoid function in scipy
         self.activation_function = lambda x: scipy.special.expit(x)
 
-    def train(self):
+    def train(self, inputs_list, targets_list):
         ''' This function trains the neural network '''
-        pass
+        # Convert inputs list to 2D array
+        inputs = np.array(inputs_list, ndmin=2).T
+        targets = np.array(targets_list, ndmin=2).T
+
+        # calculate signals into hidden layers
+        hidden_inputs = np.dot(self.wih, inputs)
+        # calculate the signals emerging from the hidden layer
+        hidden_outputs = self.activation_function(hidden_inputs)
+        
+        # calculate the signals into the final output layer
+        final_inputs = np.dot(self.who, hidden_outputs)
+        # calculate the signals emerging from the final output layer
+        final_outputs = self.activation_function(final_inputs)
+      
+        # Calculate the errors 
+        # output error is target - output
+        output_errors = targets - final_outputs
+
+        # hidden layer error is output_errors split by the weights.
+        hidden_errors = np.dot(self.who.T, output_errors)
+
+        #update the weights between hidden and output layer
+        self.who += self.lrate * np.dot((output_errors * final_outputs * (1.0 - final_outputs)), np.transpose(hidden_outputs))
+        
+        #update the weights between the input and the hidden layer
+        self.wih += self.lrate * np.dot((hidden_errors * hidden_outputs * (1.0 - hidden_outputs)), np.transpose(inputs))
 
     def query(self, inputs_list):
         ''' Query the neural network '''
