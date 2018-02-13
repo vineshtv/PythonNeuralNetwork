@@ -32,9 +32,9 @@ def main():
     scorecard = []
 
     index = 0;
-    for record in X_train:
+    for record in X_test:
         scaled_input = (np.asfarray(record) / 255.0 * 0.99) + 0.01
-        correct_label = y_train[index]
+        correct_label = y_test[index]
         index = index + 1
         outputs = nn.query(scaled_input)
         label = np.argmax(outputs)
@@ -47,6 +47,7 @@ def main():
 
     #calulate the performance
     scorecard_array = np.asarray(scorecard)
+    print("sum = ", scorecard_array.sum())
     print("Performance = ", scorecard_array.sum() / scorecard_array.size)
 
 if __name__ == "__main__":
