@@ -17,9 +17,11 @@ def main():
     # Create an instance of neural network
     nn = NeuralNetwork(input_nodes, hidden_nodes, output_nodes, learning_rate)
 
+    # Fetch the MNIST data
     mnist = fetch_mldata('MNIST original')
     X, y = mnist["data"], mnist["target"]
 
+    # Split the data into test and train set
     X_train, X_test, y_train, y_test = X[:60000], X[60000:], y[:60000], y[60000:]
    
     shuffle_index = np.random.permutation(60000)
@@ -27,8 +29,8 @@ def main():
     
 
     # Train the neural network
+    # epochs is the number of times the training set is used to train the neural network
     epochs = 5
-    index = 0
     for e in range(epochs):
         index = 0
         # Go through all the records in the training set
@@ -56,6 +58,8 @@ def main():
         if(label == correct_label):
             scorecard.append(1)
         else:
+            #print("NN prediction = ", label)
+            #print("Actual label = ", correct_label)
             scorecard.append(0)
 
     #calulate the performance
