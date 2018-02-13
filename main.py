@@ -3,8 +3,6 @@
 from __future__ import division
 from sklearn.datasets import fetch_mldata
 from neural_network import NeuralNetwork 
-import matplotlib
-import matplotlib.pyplot as plt
 import numpy as np
 
 def main():
