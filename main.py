@@ -32,6 +32,8 @@ def main():
     # epochs is the number of times the training set is used to train the neural network
     epochs = 5
     for e in range(epochs):
+        msg = "Training epoch " + str(e + 1) + " of " + str(epochs) + "..."
+        print (msg)
         index = 0
         # Go through all the records in the training set
         for record in X_train:
@@ -41,11 +43,13 @@ def main():
             nn.train(scaled_input, targets)
             index = index + 1
             
+    print("Training complete!!!")
     # test the neural network
 
     # scorecard for how well the network performs
     scorecard = []
 
+    print("Testing the Neural Network.") 
     index = 0;
     for record in X_test:
         scaled_input = (np.asfarray(record) / 255.0 * 0.99) + 0.01
@@ -64,9 +68,9 @@ def main():
 
     #calulate the performance
     scorecard_array = np.asarray(scorecard)
-    print("sum = ", scorecard_array.sum())
-    print("size = ", scorecard_array.size)
-    print("Performance = ", scorecard_array.sum() / scorecard_array.size)
+    #print("sum = ", scorecard_array.sum())
+    #print("size = ", scorecard_array.size)
+    print("Performance of the Neural Network = ", scorecard_array.sum() / scorecard_array.size)
 
 if __name__ == "__main__":
     main()
